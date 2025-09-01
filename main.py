@@ -1,7 +1,7 @@
 from sklearn import datasets
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
-# from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, classification_report
 import matplotlib.pyplot as plt
 
@@ -17,7 +17,7 @@ X = StandardScaler().fit(X).transform(X)
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1)
 
 # Train model
-# clf = LogisticRegression(random_state=0)
+clf = SVC(kernel="linear")
 clf.fit(X_train, y_train)
 
 # Classify test data using model
