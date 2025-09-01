@@ -4,6 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, classification_report
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Load dataset
 iris = datasets.load_iris()
@@ -62,5 +63,29 @@ make_plot(ax3, h_axis=1, v_axis=3)
 # XZ-plane
 ax4.set(xlabel=iris.feature_names[2])
 make_plot(ax4, h_axis=2, v_axis=3)
+
+plt.show()
+
+# Plot points and hyperplane in 3D
+fig = plt.figure()
+ax = fig.add_subplot(projection="3d")
+xv = X[:,1]
+yv = X[:,2]
+
+# Plot points in 3D
+for target in set(y):
+    ax.plot(xv[y==target], yv[y==target], X[:,3][y==target], target_color_list[target]+"o")
+
+# Plot hyperplanes in 3D
+xv = np.linspace(np.min(xv), np.max(xv), num=3)
+yv = np.linspace(np.min(yv), np.max(yv), num=3)
+xv, yv = np.meshgrid(xv, yv)
+for hyperplane in range(d.size):
+    ax.plot_surface(xv, yv, (d[hyperplane]-N[hyperplane][1]*xv-N[hyperplane][2]*yv)/N[hyperplane][3], color=hyperplane_color_list[hyperplane])
+
+# Label axes
+ax.set_xlabel(iris.feature_names[1])
+ax.set_ylabel(iris.feature_names[2])
+ax.set_zlabel(iris.feature_names[3])
 
 plt.show()
