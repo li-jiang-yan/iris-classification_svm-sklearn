@@ -30,3 +30,37 @@ plt.show()
 
 # Get the model classification metrics (will only show after the confusion matrix display window is closed)
 print(classification_report(y_test, y_pred, target_names=iris.target_names))
+
+# Plot points and hyperplane as orthogonal projection
+# Based on graphs previously plotted, it seems that feature 0 (sepal length) does not differ much between different targets
+# so it does not seem to be helpful to plot it
+N = clf.coef_
+d = clf.intercept_
+fig = plt.figure()
+gs = fig.add_gridspec(2, 2)
+(ax1, ax2), (ax3, ax4) = gs.subplots(sharex="col", sharey="row")
+hyperplane_color_list = ["b", "g", "r"]
+target_color_list = ["c", "m", "y"]
+
+# Custom function for making plots
+def make_plot(ax, h_axis, v_axis):
+    """Custom function for making plots with a given horizontal and vertical axis"""
+    x_pts = X[:,h_axis]
+    for hyperplane in range(d.size):
+        ax.plot(x_pts, (d[hyperplane]-N[hyperplane][h_axis]*x_pts)/N[hyperplane][v_axis], hyperplane_color_list[hyperplane])
+    for target in set(y):
+        ax.plot(x_pts[y==target], X[:,v_axis][y==target], target_color_list[target]+"o")
+
+# YZ-plane
+ax1.set(ylabel=iris.feature_names[2])
+make_plot(ax1, h_axis=1, v_axis=2)
+
+# XY-plane
+ax3.set(xlabel=iris.feature_names[1], ylabel=iris.feature_names[3])
+make_plot(ax3, h_axis=1, v_axis=3)
+
+# XZ-plane
+ax4.set(xlabel=iris.feature_names[2])
+make_plot(ax4, h_axis=2, v_axis=3)
+
+plt.show()
