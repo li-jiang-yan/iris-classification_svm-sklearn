@@ -32,6 +32,7 @@ plt.show()
 # Get the model classification metrics (will only show after the confusion matrix display window is closed)
 print(classification_report(y_test, y_pred, target_names=iris.target_names))
 
+################################################################################
 # Plot points and hyperplane as orthogonal projection
 # Based on graphs previously plotted, it seems that feature 0 (sepal length) does not differ much between different targets
 # so it does not seem to be helpful to plot it
@@ -66,6 +67,7 @@ make_plot(ax4, h_axis=2, v_axis=3)
 
 plt.show()
 
+################################################################################
 # Plot points and hyperplane in 3D
 fig = plt.figure()
 ax = fig.add_subplot(projection="3d")
@@ -89,3 +91,4 @@ ax.set_ylabel(iris.feature_names[2])
 ax.set_zlabel(iris.feature_names[3])
 
 plt.show()
+################################################################################
