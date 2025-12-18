@@ -82,8 +82,8 @@ for target in set(y):
 xv = np.linspace(np.min(xv), np.max(xv), num=3)
 yv = np.linspace(np.min(yv), np.max(yv), num=3)
 xv, yv = np.meshgrid(xv, yv)
-for hyperplane in range(d.size):
-    ax.plot_surface(xv, yv, (d[hyperplane]-N[hyperplane][1]*xv-N[hyperplane][2]*yv)/N[hyperplane][3], color=hyperplane_color_list[hyperplane])
+for hyperplane in [0,2]:
+    ax.plot_surface(xv, yv, (d[hyperplane]-N[hyperplane][1]*xv-N[hyperplane][2]*yv)/N[hyperplane][3], color=hyperplane_color_list[hyperplane], alpha=0.5)
 
 # Label axes
 ax.set_xlabel(iris.feature_names[1])
